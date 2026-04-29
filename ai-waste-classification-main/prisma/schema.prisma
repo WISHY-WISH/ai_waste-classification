@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model WasteRecord {
+  id              Int      @id @default(autoincrement())
+  imageUrl        String   // URL ของรูปภาพขยะที่ถ่ายหรืออัปโหลด [cite: 65]
+  wasteType       String   // 1 ใน 10 ประเภท (เช่น แบตเตอรี่, พลาสติก) 
+  category        String   // หมวดหมู่ (เช่น ขยะรีไซเคิล, ขยะอันตราย) 
+  confidence      Float    // ค่าความมั่นใจ (%) จากโมเดล AI 
+  binColor        String   // สีถังขยะที่แนะนำ 
+  boundingBox     String?  // พิกัดกรอบวัตถุ (เก็บเป็น JSON String สำหรับ Demo) 
+  createdAt       DateTime @default(now())
+}
